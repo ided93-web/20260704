@@ -1,0 +1,1743 @@
+<html lang="ko"><head><script data-bard-injected="true">(function(firebaseConfig, initialAuthToken, appId) {
+        window.__firebase_config = firebaseConfig;
+        window.__initial_auth_token = initialAuthToken;
+        window.__app_id = appId;
+            })("\n{\n  \"apiKey\": \"AIzaSyCqyCcs2R2e7AegGjvFAwG98wlamtbHvZY\",\n  \"authDomain\": \"bard-frontend.firebaseapp.com\",\n  \"projectId\": \"bard-frontend\",\n  \"storageBucket\": \"bard-frontend.firebasestorage.app\",\n  \"messagingSenderId\": \"175205271074\",\n  \"appId\": \"1:175205271074:web:2b7bd4d34d33bf38e6ec7b\"\n}\n","eyJhbGciOiJSUzI1NiIsImtpZCI6IjBmNDhjMDQxMTUxMmM3NTM4NjJkMmFkZWVmYjg0NTczZTAyZmFlMjMiLCJ0eXAiOiJKV1QifQ.eyJzdWIiOiJmaXJlYmFzZS1hZG1pbnNkay1mYnN2Y0BiYXJkLWZyb250ZW5kLmlhbS5nc2VydmljZWFjY291bnQuY29tIiwiYXVkIjoiaHR0cHM6Ly9pZGVudGl0eXRvb2xraXQuZ29vZ2xlYXBpcy5jb20vZ29vZ2xlLmlkZW50aXR5LmlkZW50aXR5dG9vbGtpdC52MS5JZGVudGl0eVRvb2xraXQiLCJ1aWQiOiIwNzMwODQ2MzI5MTI4ODM1MTA4MCIsImlzcyI6ImZpcmViYXNlLWFkbWluc2RrLWZic3ZjQGJhcmQtZnJvbnRlbmQuaWFtLmdzZXJ2aWNlYWNjb3VudC5jb20iLCJjbGFpbXMiOnsiYXBwSWQiOiJjXzk5YjA5YTNmODI2Zjc5NjRfaW5kZXguaHRtbC0xMzQifSwiZXhwIjoxNzgzMTc2NzIzLCJpYXQiOjE3ODMxNzMxMjMsImFsZyI6IlJTMjU2In0.eF3jJtHXe70QDKsWrWFpnZ99UZkOJlwdSXbcED3Js9FVJGhSppl167rmK4umpHsz9Fp6GSepVcy-sdtL3OixVKEAJEWHaAED1OA2P-Aor9iGr7QflF7Bw_7mdhsU9nkQnGNKDxyE0c2kdl0wbDp_4PjCXcMaaE0yV8wbBcGy8e2ifLTTND61DB1oUOrS27PwzjF-xFiyamnDNKPvIRR23t4fGERwPqnIS9nZpqO2pTn9ffUqUYZHhrNAc1_ekBt6UQGyZ1SJz593Ucn2CrrCaAPbR3evlwibHwqHZF7otHgGL7EmAvLozlmxAa6o8R0lqJ4HTApmtjLpg3nqAQEyVQ","c_99b09a3f826f7964_index.html-134")</script><script data-bard-injected="true">(function() {
+  document.addEventListener('mouseup', function(e) {
+    const selection = window.getSelection();
+    const selectedText = selection ? selection.toString().trim() : '';
+    if (selectedText.length > 0) {
+      const range = selection.getRangeAt(0);
+      // Clone the original user selection range before DOM manipulation. In browser DOM mechanics,
+      // removing temporary nodes from within an active selection invalidates and collapses the selection pointers.
+      const originalRange = range.cloneRange();
+      const rect = range.getBoundingClientRect();
+
+      const startTag = document.createTextNode('<selection-tag>');
+      const endTag = document.createTextNode('</selection-tag>');
+
+      const rangeStart = range.cloneRange();
+      rangeStart.collapse(true);
+
+      const rangeEnd = range.cloneRange();
+      rangeEnd.collapse(false);
+
+      // Insert end tag first to avoid shifting start boundary if they are in the same node.
+      rangeEnd.insertNode(endTag);
+      rangeStart.insertNode(startTag);
+
+      const fullTextWithTags = document.body.innerText;
+
+      if (startTag.parentNode) {
+        startTag.parentNode.removeChild(startTag);
+      }
+      if (endTag.parentNode) {
+        endTag.parentNode.removeChild(endTag);
+      }
+
+      // Explicitly restore the user's original selection range. Without this restoration, the selection collapses
+      // instantly, causing subsequent mouse movements or clicks to evaluate window.getSelection() as empty,
+      // which triggers a premature textSelectionCleared post-message that wipes out artifactTextWithTags in the store.
+      selection.removeAllRanges();
+      selection.addRange(originalRange);
+
+      window.parent.postMessage({
+        type: 'textSelection',
+        text: selectedText,
+        fullTextWithTags: fullTextWithTags,
+        rect: {
+          top: rect.top,
+          left: rect.left,
+          bottom: rect.bottom,
+          right: rect.right,
+          width: rect.width,
+          height: rect.height,
+        },
+      }, '*');
+    } else {
+      window.parent.postMessage({
+        type: 'textSelectionCleared',
+      }, '*');
+    }
+  }, true);
+})();</script><script data-bard-injected="true">(function(){'use strict';window.addEventListener("message",a=>{a.data&&a.data.type==="SUPPLEMENTAL_DATA_UPDATE"&&window.dispatchEvent(new CustomEvent("supplementaldataupdate",{detail:a.data.data}))});}).call(this);
+</script><script data-bard-injected="true">(function(){'use strict';var h=typeof Object.defineProperties=="function"?Object.defineProperty:function(a,b,d){if(a==Array.prototype||a==Object.prototype)return a;a[b]=d.value;return a};function l(a){a=["object"==typeof globalThis&&globalThis,a,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var b=0;b<a.length;++b){var d=a[b];if(d&&d.Math==Math)return d}throw Error("Cannot find global object");}var n=l(this);
+function p(a,b){if(b)a:{var d=n;a=a.split(".");for(var c=0;c<a.length-1;c++){var e=a[c];if(!(e in d))break a;d=d[e]}a=a[a.length-1];c=d[a];b=b(c);b!=c&&b!=null&&h(d,a,{configurable:!0,writable:!0,value:b})}}function r(a){function b(c){return a.next(c)}function d(c){return a.throw(c)}return new Promise(function(c,e){function f(g){g.done?c(g.value):Promise.resolve(g.value).then(b,d).then(f,e)}f(a.next())})}function t(a){return r(a())}
+p("Object.values",function(a){return a?a:function(b){var d=[],c;for(c in b)Object.prototype.hasOwnProperty.call(b,c)&&d.push(b[c]);return d}});p("Array.prototype.includes",function(a){return a?a:function(b,d){var c=this;c instanceof String&&(c=String(c));var e=c.length;d=d||0;for(d<0&&(d=Math.max(d+e,0));d<e;d++){var f=c[d];if(f===b||Object.is(f,b))return!0}return!1}});/*
+
+ MIT License
+
+ Copyright (c) 2017-2023 W.Y.
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ SOFTWARE.
+
+*/
+function u(a,b){var d=a.style;b.backgroundColor&&(d.backgroundColor=b.backgroundColor);b.width&&(d.width=`${b.width}px`);b.height&&(d.height=`${b.height}px`);var c=b.style;c!=null&&Object.keys(c).forEach(e=>{d[e]=c[e]})};var v=(()=>{var a=0;return()=>{a+=1;return`u${`0000${(Math.random()*1679616<<0).toString(36)}`.slice(-4)}${a}`}})();function w(a){var b=[];for(let d=0,c=a.length;d<c;d++)b.push(a[d]);return b}let x=null;function y(a={}){return x?x:a.l?x=a.l:x=w(window.getComputedStyle(document.documentElement))}function z(a,b){return(a=(a.ownerDocument.defaultView||window).getComputedStyle(a).getPropertyValue(b))?parseFloat(a.replace("px","")):0}
+function A(a,b={}){var d;if(!(d=b.width)){d=z(a,"border-left-width");var c=z(a,"border-right-width");d=a.clientWidth+d+c}(b=b.height)||(b=z(a,"border-top-width"),c=z(a,"border-bottom-width"),b=a.clientHeight+b+c);return{width:d,height:b}}function B(a){return new Promise((b,d)=>{var c=new Image;c.onload=()=>{c.decode().then(()=>{requestAnimationFrame(()=>b(c))})};c.onerror=d;c.crossOrigin="anonymous";c.decoding="async";c.src=a})}
+function C(a){return t(function*(){return Promise.resolve().then(()=>(new XMLSerializer).serializeToString(a)).then(encodeURIComponent).then(b=>`data:image/svg+xml;charset=utf-8,${b}`)})}
+function D(a,b,d){return t(function*(){var c=document.createElementNS("http://www.w3.org/2000/svg","svg"),e=document.createElementNS("http://www.w3.org/2000/svg","foreignObject");c.setAttribute("width",`${b}`);c.setAttribute("height",`${d}`);c.setAttribute("viewBox",`0 0 ${b} ${d}`);e.setAttribute("width","100%");e.setAttribute("height","100%");e.setAttribute("x","0");e.setAttribute("y","0");e.setAttribute("externalResourcesRequired","true");c.appendChild(e);e.appendChild(a);return C(c)})}
+var E=(a,b)=>{if(a instanceof b)return!0;a=Object.getPrototypeOf(a);return a===null?!1:a.constructor.name===b.name||E(a,b)};function F(a,b){return y(b).map(d=>{var c=a.getPropertyValue(d),e=a.getPropertyPriority(d);return`${d}: ${c}${e?" !important":""};`}).join(" ")}
+function G(a,b,d,c){a=window.getComputedStyle(a,d);var e=a.getPropertyValue("content");if(e!==""&&e!=="none"){var f=v();try{b.className=`${b.className} ${f}`}catch(k){return}e=document.createElement("style");var g=e.appendChild;d=`.${f}:${d}`;a.cssText?(c=a.getPropertyValue("content"),c=`${a.cssText} content: '${c.replace(/'|"/g,"")}';`):c=F(a,c);g.call(e,document.createTextNode(`${d}{${c}}`));b.appendChild(e)}};function H(a){return a.search(/^(data:)/)!==-1}function I(a,b,d){return t(function*(){var c=yield fetch(a,b);if(c.status===404)throw Error(`Resource "${c.url}" not found`);var e=yield c.blob();return new Promise((f,g)=>{var k=new FileReader;k.onerror=g;k.onloadend=()=>{try{f(d({o:c,result:k.result}))}catch(m){g(m)}};k.readAsDataURL(e)})})}const J={};function K(a,b,d){var c=a.replace(/\?.*/,"");d&&(c=a);/ttf|otf|eot|woff2?/i.test(c)&&(c=c.replace(/.*\//,""));return b?`[${b}]${c}`:c}
+function L(a,b,d){return t(function*(){var c=K(a,b,d.C);if(J[c]!=null)return J[c];d.u&&(a+=(/\?/.test(a)?"&":"?")+(new Date).getTime());try{let f=yield I(a,d.i,({o:g,result:k})=>{b||(b=g.headers.get("Content-Type")||"");return k.split(/,/)[1]});var e=`data:${b};base64,${f}`}catch(f){e=d.B||""}return J[c]=e})};const M={P:"application/font-woff",R:"application/font-woff",N:"application/font-truetype",v:"application/vnd.ms-fontobject",H:"image/png",F:"image/jpeg",D:"image/jpeg",A:"image/gif",M:"image/tiff",L:"image/svg+xml",O:"image/webp"};function N(a){return(a=/\.([^./]*?)$/g.exec(a))?a[1]:""};function O(a){return t(function*(){var b=a.toDataURL();return b==="data:,"?a.cloneNode(!1):B(b)})}function aa(a,b){return t(function*(){if(a.currentSrc){var d=document.createElement("canvas");let c=d.getContext("2d");d.width=a.clientWidth;d.height=a.clientHeight;c==null||c.drawImage(a,0,0,d.width,d.height);d=d.toDataURL();return B(d)}d=a.poster;d=yield L(d,M[N(d).toLowerCase()]||"",b);return B(d)})}
+function ba(a,b){return t(function*(){try{let d;if(a==null?0:(d=a.contentDocument)==null?0:d.body)return yield P(a.contentDocument.body,b,!0)}catch(d){}return a.cloneNode(!1)})}function ca(a,b){return t(function*(){return E(a,HTMLCanvasElement)?O(a):E(a,HTMLVideoElement)?aa(a,b):E(a,HTMLIFrameElement)?ba(a,b):a.cloneNode(a.tagName!=null&&a.tagName.toUpperCase()==="SVG")})}
+function da(a,b,d){return t(function*(){if(b.tagName!=null&&b.tagName.toUpperCase()==="SVG")return b;var c=[];if(a.tagName!=null&&a.tagName.toUpperCase()==="SLOT"&&a.assignedNodes)c=w(a.assignedNodes());else{let e;if(E(a,HTMLIFrameElement)&&((e=a.contentDocument)==null?0:e.body))c=w(a.contentDocument.body.childNodes);else{let f;c=w(((f=a.shadowRoot)!=null?f:a).childNodes)}}if(c.length===0||E(a,HTMLVideoElement))return b;yield c.reduce((e,f)=>e.then(()=>P(f,d)).then(g=>{g&&b.appendChild(g)}),Promise.resolve());
+return b})}function ea(a,b,d){var c=b.style;if(c){var e=window.getComputedStyle(a);e.cssText?(c.cssText=e.cssText,c.transformOrigin=e.transformOrigin):y(d).forEach(f=>{var g=e.getPropertyValue(f);f==="font-size"&&g.endsWith("px")&&(g=`${Math.floor(parseFloat(g.substring(0,g.length-2)))-.1}px`);E(a,HTMLIFrameElement)&&f==="display"&&g==="inline"&&(g="block");f==="d"&&b.getAttribute("d")&&(g=`path(${b.getAttribute("d")})`);c.setProperty(f,g,e.getPropertyPriority(f))})}}
+function fa(a,b){E(a,HTMLSelectElement)&&(b=Array.from(b.children).find(d=>a.value===d.getAttribute("value")))&&b.setAttribute("selected","")}
+function ha(a,b){return t(function*(){var d=a.querySelectorAll?a.querySelectorAll("use"):[];if(d.length===0)return a;var c={};for(var e=0;e<d.length;e++){var f=d[e].getAttribute("xlink:href");if(f){let g=document.querySelector(f);a.querySelector(f)||!g||c[f]||(c[f]=yield P(g,b,!0))}}d=Object.values(c);if(d.length){c=document.createElementNS("http://www.w3.org/1999/xhtml","svg");c.setAttribute("xmlns","http://www.w3.org/1999/xhtml");c.style.position="absolute";c.style.width="0";c.style.height="0";
+c.style.overflow="hidden";c.style.display="none";e=document.createElementNS("http://www.w3.org/1999/xhtml","defs");c.appendChild(e);for(f=0;f<d.length;f++)e.appendChild(d[f]);a.appendChild(c)}return a})}
+function P(a,b,d){return t(function*(){return d||!b.filter||b.filter(a)?Promise.resolve(a).then(c=>ca(c,b)).then(c=>da(a,c,b)).then(c=>{E(c,Element)&&(ea(a,c,b),G(a,c,":before",b),G(a,c,":after",b),E(a,HTMLTextAreaElement)&&(c.textContent=a.value),E(a,HTMLInputElement)&&c.setAttribute("value",a.value),fa(a,c));return c}).then(c=>ha(c,b)):null})};const Q=/url\((['"]?)([^'"]+?)\1\)/g,ia=/url\([^)]+\)\s*format\((["']?)([^"']+)\1\)/g,ja=/src:\s*(?:url\([^)]+\)\s*format\([^)]+\)[,;]\s*)+/g;function ka(a){var b=[];a.replace(Q,(d,c,e)=>{b.push(e);return d});return b.filter(d=>!H(d))}
+function la(a,b,d,c){return t(function*(){try{let e=d?(new URL(b,d||void 0)).toString():b,f;f=yield L(e,M[N(b).toLowerCase()]||"",c);return a.replace(new RegExp(`(url\\(['"]?)(${b.replace(/([.*+?^${}()|\[\]\/\\])/g,"\\$1")})(['"]?\\))`,"g"),`$1${f}$3`)}catch(e){}return a})}function ma(a,{I:b}){return b?a.replace(ja,d=>{for(;;){let [c,,e]=ia.exec(d)||[];if(!e)return"";if(e===b)return`src: ${c};`}}):a}
+function R(a,b,d){return t(function*(){if(a.search(Q)===-1)return a;var c=ma(a,d);return ka(c).reduce((e,f)=>e.then(g=>la(g,f,b,d)),Promise.resolve(c))})};function S(a,b,d){return t(function*(){var c,e=(c=b.style)==null?void 0:c.getPropertyValue(a);return e?(c=yield R(e,null,d),b.style.setProperty(a,c,b.style.getPropertyPriority(a)),!0):!1})}function na(a,b){return t(function*(){(yield S("background",a,b))||(yield S("background-image",a,b));(yield S("mask",a,b))||(yield S("-webkit-mask",a,b))||(yield S("mask-image",a,b))||(yield S("-webkit-mask-image",a,b))})}
+function oa(a,b){return t(function*(){var d=E(a,HTMLImageElement);if(d&&!H(a.src)||E(a,SVGImageElement)&&!H(a.href.baseVal)){var c=d?a.src:a.href.baseVal,e=yield L(c,M[N(c).toLowerCase()]||"",b);yield new Promise((f,g)=>{a.onload=f;a.onerror=b.m?(...k)=>{try{f(b.m(...k))}catch(m){g(m)}}:g;a.decode&&(a.decode=f);a.loading==="lazy"&&(a.loading="eager");d?(a.srcset="",a.src=e):a.href.baseVal=e})}})}
+function pa(a,b){return t(function*(){var d=w(a.childNodes).map(c=>T(c,b));yield Promise.all(d).then(()=>a)})}function T(a,b){return t(function*(){E(a,Element)&&(yield na(a,b),yield oa(a,b),yield pa(a,b))})};const U={};function V(a){return t(function*(){var b=U[a];if(b!=null)return b;b=yield(yield fetch(a)).text();b={url:a,cssText:b};return U[a]=b})}function W(a,b){return t(function*(){var d=a.cssText,c=/url\(["']?([^"')]+)["']?\)/g,e=(d.match(/url\([^)]+\)/g)||[]).map(f=>t(function*(){var g=f.replace(c,"$1");g.startsWith("https://")||(g=(new URL(g,a.url)).href);return I(g,b.i,({result:k})=>{d=d.replace(f,`url(${k})`);return[f,k]})}));return Promise.all(e).then(()=>d)})}
+function X(a){if(a==null)return[];var b=[];a=a.replace(/(\/\*[\s\S]*?\*\/)/gi,"");for(var d=RegExp("((@.*?keyframes [\\s\\S]*?){([\\s\\S]*?}\\s*?)})","gi");;){var c=d.exec(a);if(c===null)break;b.push(c[0])}a=a.replace(d,"");d=/@import[\s\S]*?url\([^)]*\)[\s\S]*?;/gi;for(c=RegExp("((\\s*?(?:\\/\\*[\\s\\S]*?\\*\\/)?\\s*?@media[\\s\\S]*?){([\\s\\S]*?)}\\s*?})|(([\\s\\S]*?){([\\s\\S]*?)})","gi");;){let e=d.exec(a);if(e===null)if(e=c.exec(a),e===null)break;else d.lastIndex=c.lastIndex;else c.lastIndex=
+d.lastIndex;b.push(e[0])}return b}
+function qa(a,b){return t(function*(){var d=[],c=[];a.forEach(e=>{if("cssRules"in e)try{w(e.cssRules||[]).forEach((f,g)=>{if(f.type===CSSRule.IMPORT_RULE){let k=g+1;f=V(f.href).then(m=>W(m,b)).then(m=>X(m).forEach(q=>{try{e.insertRule(q,q.startsWith("@import")?k+=1:e.cssRules.length)}catch(Da){}})).catch(()=>{});c.push(f)}})}catch(f){let g=a.find(k=>k.href==null)||document.styleSheets[0];e.href!=null&&c.push(V(e.href).then(k=>W(k,b)).then(k=>X(k).forEach(m=>{g.insertRule(m,g.cssRules.length)})).catch(()=>
+{}))}});return Promise.all(c).then(()=>{a.forEach(e=>{if("cssRules"in e)try{w(e.cssRules||[]).forEach(f=>{d.push(f)})}catch(f){}});return d})})}function ra(a){return a.filter(b=>b.type===CSSRule.FONT_FACE_RULE).filter(b=>b.style.getPropertyValue("src").search(Q)!==-1)}function sa(a,b){return t(function*(){if(a.ownerDocument==null)throw Error("Provided element is not within a Document");var d=w(a.ownerDocument.styleSheets);d=yield qa(d,b);return ra(d)})}
+function ta(a){function b(c){(c.style.fontFamily||getComputedStyle(c).fontFamily).split(",").forEach(e=>{d.add(e.trim().replace(/["']/g,""))});Array.from(c.children).forEach(e=>{e instanceof HTMLElement&&b(e)})}var d=new Set;b(a);return d}function ua(a,b){return t(function*(){var d=yield sa(a,b),c=ta(a);return(yield Promise.all(d.filter(e=>c.has(e.style.fontFamily.trim().replace(/["']/g,""))).map(e=>R(e.cssText,e.parentStyleSheet?e.parentStyleSheet.href:null,b)))).join("\n")})}
+function va(a,b){return t(function*(){var d=b.j!=null?b.j:b.K?null:yield ua(a,b);if(d){let c=document.createElement("style");c.appendChild(document.createTextNode(d));a.firstChild?a.insertBefore(c,a.firstChild):a.appendChild(c)}})};function wa(a,b={}){return t(function*(){var {width:d,height:c}=A(a,b),e=yield P(a,b,!0);yield va(e,b);yield T(e,b);u(e,b);return yield D(e,d,c)})}
+function xa(a,b={}){return t(function*(){var {width:d,height:c}=A(a,b),e=yield wa(a,b);e=yield B(e);var f=document.createElement("canvas"),g=f.getContext("2d"),k=b.G||window.devicePixelRatio||1,m=b.h||d,q=b.g||c;f.width=m*k;f.height=q*k;!b.J&&(f.width>16384||f.height>16384)&&(f.width>16384&&f.height>16384?f.width>f.height?(f.height*=16384/f.width,f.width=16384):(f.width*=16384/f.height,f.height=16384):f.width>16384?(f.height*=16384/f.width,f.width=16384):(f.width*=16384/f.height,f.height=16384));
+f.style.width=`${m}`;f.style.height=`${q}`;b.backgroundColor&&(g.fillStyle=b.backgroundColor,g.fillRect(0,0,f.width,f.height));g.drawImage(e,0,0,f.width,f.height);return f})}function ya(a,b={}){return t(function*(){return(yield xa(a,b)).toDataURL()})};const za=["gemini.google.com","corp.google.com","proxy.googlers.com"];function Y(){return document.body.querySelectorAll('[class*="animate"]').length>0}function Z(a){return t(function*(){try{return yield ya(a,{h:a.offsetWidth,g:a.offsetHeight})}catch(d){var b=a.offsetHeight;let c=document.createElement("canvas");c.width=a.offsetWidth;c.height=b;return c.toDataURL("image/png")}})}
+function Aa(){return t(function*(){var a=document.body.offsetWidth,b=document.body.offsetHeight,d=document.body.cloneNode(!0);d.querySelectorAll('[class*="animate"]').forEach(c=>{c.classList.remove(...Array.from(c.classList).filter(e=>e.startsWith("animate")))});d.style.width=`${a}px`;d.style.height=`${b}px`;return d})}
+function Ba(a){return t(function*(){var b=document.body;if(Y()){var d=yield Aa();b=d;document.body.appendChild(d)}d=yield Z(b);Y()&&document.body.removeChild(b);window.parent.postMessage({type:"SEND_SCREENSHOT",image:d,topOffset:document.documentElement.scrollTop},a.origin)})}function Ca(a){return t(function*(){var b={type:"SEND_SCREENSHOT_FOR_DATA_VISUALIZATION",image:yield Z(document.body),topOffset:0};window.parent.postMessage(b,a.origin)})}
+window.addEventListener("message",a=>t(function*(){if(za.some(d=>a.origin.includes(d))){var b=a.data;b&&(b.type==="MAKE_SCREENSHOT"&&(yield Ba(a)),b.type==="MAKE_SCREENSHOT_FOR_DATA_VISUALIZATION"&&(yield Ca(a)))}}));
+})();</script><script data-bard-injected="true">(function() {
+  // Ensure this script is executed only once
+  if (window.firebaseAuthBridgeScriptLoaded) {
+    return;
+  }
+  window.firebaseAuthBridgeScriptLoaded = true;
+
+  let nextTokenPromiseId = 0;
+
+  // Stores { resolve, reject } for ongoing token requests
+  const pendingTokenPromises = {};
+
+  // Listen for messages from the Host Application
+  window.addEventListener('message', function(event) {
+
+    const messageData = event.data;
+
+  if (messageData && messageData.type === 'RESOLVE_NEW_FIREBASE_TOKEN') {
+      const { success, token, error, promiseId } = messageData ?? {};
+      if (pendingTokenPromises[promiseId]) {
+        if (success) {
+          pendingTokenPromises[promiseId].resolve(token);
+        } else {
+          pendingTokenPromises[promiseId].reject(new Error(error || 'Token refresh failed from host.'));
+        }
+        delete pendingTokenPromises[promiseId];
+      }
+    }
+  });
+
+  // Expose a function for the Generated App to request a new Firebase token
+  window.requestNewFirebaseToken = function() {
+    const currentPromiseId = nextTokenPromiseId++;
+    const promise = new Promise((resolve, reject) => {
+      pendingTokenPromises[currentPromiseId] = { resolve, reject };
+    });
+    if (window.parent && window.parent !== window) {
+      window.parent.postMessage({
+        type: 'REQUEST_NEW_FIREBASE_TOKEN',
+        promiseId: currentPromiseId
+      }, '*');
+    } else {
+      pendingTokenPromises[currentPromiseId].reject(new Error('No parent window to request token from.'));
+      delete pendingTokenPromises[currentPromiseId];
+    }
+    return promise;
+  };
+})();</script><script data-bard-injected="true">
+let realOriginalGetUserMedia = null;
+if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  realOriginalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
+}
+
+(function() {
+  if (navigator.mediaDevices && navigator.mediaDevices.__proto__) {
+    try {
+      Object.defineProperty(navigator.mediaDevices.__proto__, 'getUserMedia', {
+        get: function() {
+          return undefined; // Or throw an error
+        },
+        configurable: false
+      });
+    } catch (error) {
+      console.error("Error defining prototype getter:", error);
+    }
+  }
+})();
+
+(function() {
+  const pendingMediaResolvers = {};
+  let nextMediaPromiseId = 0;
+
+  function requestMediaPermissions(constraints) {
+    const mediaPromiseId = nextMediaPromiseId++;
+    const promise = new Promise((resolve, reject) => {
+      pendingMediaResolvers[mediaPromiseId] = (granted) => {
+        delete pendingMediaResolvers[mediaPromiseId];
+        resolve(granted);
+      };
+    });
+
+    window.parent.postMessage({
+      type: 'requestMediaPermission',
+      constraints: constraints,
+      promiseId: mediaPromiseId,
+    }, '*');
+
+    return promise;
+  }
+
+  let originalGetUserMedia = realOriginalGetUserMedia;
+
+  function interceptGetUserMedia() {
+    if (navigator.mediaDevices) {
+      Object.defineProperty(navigator.mediaDevices, 'getUserMedia', {
+        value: function(constraints) {
+          return requestMediaPermissions(constraints).then((granted) => {
+            if (granted) {
+              if (originalGetUserMedia) {
+                return originalGetUserMedia(constraints);
+              } else {
+                throw new Error("Original getUserMedia not available.");
+              }
+            } else {
+              throw new DOMException('Permission denied', 'NotAllowedError');
+            }
+          });
+        },
+        writable: false,
+        configurable: false
+      });
+    }
+  }
+
+  interceptGetUserMedia();
+
+  const observer = new MutationObserver(function(mutationsList, observer) {
+    for (const mutation of mutationsList) {
+      if (mutation.type === 'reconfigured' && mutation.name === 'getUserMedia' && mutation.object === navigator.mediaDevices) {
+        interceptGetUserMedia();
+      } else if (mutation.type === 'attributes' && mutation.attributeName === 'getUserMedia' && mutation.target === navigator.mediaDevices) {
+        interceptGetUserMedia();
+      } else if (mutation.type === 'childList' && mutation.addedNodes) {
+        mutation.addedNodes.forEach(node => {
+          if (node === navigator.mediaDevices) {
+            interceptGetUserMedia();
+          }
+        });
+      }
+    }
+  });
+
+  function interceptSpeechRecognition() {
+    if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
+      return;
+    }
+
+    const OriginalSpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+    const SpeechRecognitionWrapper = function(...args) {
+      const recognizer = new OriginalSpeechRecognition(...args);
+      const originalStart = recognizer.start.bind(recognizer);
+
+      recognizer.start = function() {
+        requestMediaPermissions({ audio: true }).then(granted => {
+          if (granted) {
+            originalStart();
+          } else {
+            const errorEvent = new SpeechRecognitionErrorEvent('error');
+            errorEvent.error = 'not-allowed'; // This is the standard error for permission denial.
+            recognizer.dispatchEvent(errorEvent);
+          }
+        });
+      };
+
+      return recognizer;
+    };
+
+    SpeechRecognitionWrapper.prototype = OriginalSpeechRecognition.prototype;
+    SpeechRecognitionWrapper.prototype.constructor = SpeechRecognitionWrapper;
+
+    if (window.SpeechRecognition) {
+      window.SpeechRecognition = SpeechRecognitionWrapper;
+    }
+    if (window.webkitSpeechRecognition) {
+      window.webkitSpeechRecognition = SpeechRecognitionWrapper;
+    }
+  }
+
+  interceptSpeechRecognition();
+
+  window.addEventListener('message', function(event) {
+    if (event.data) {
+      if (event.data.type === 'resolveMediaPermission') {
+        const { promiseId, granted } = event.data;
+        if (pendingMediaResolvers[promiseId]) {
+          pendingMediaResolvers[promiseId](granted);
+        }
+      }
+    }
+  });
+
+})();</script><script ws-interception-config="{&quot;parentOrigin&quot;:&quot;https://gemini.google.com&quot;,&quot;proxiedDomains&quot;:[]}" data-bard-injected="true">(function(){'use strict';var u=typeof Object.defineProperties=="function"?Object.defineProperty:function(b,d,e){if(b==Array.prototype||b==Object.prototype)return b;b[d]=e.value;return b};function v(b){b=["object"==typeof globalThis&&globalThis,b,"object"==typeof window&&window,"object"==typeof self&&self,"object"==typeof global&&global];for(var d=0;d<b.length;++d){var e=b[d];if(e&&e.Math==Math)return e}throw Error("Cannot find global object");}var w=v(this);
+function y(b,d){if(d)a:{var e=w;b=b.split(".");for(var h=0;h<b.length-1;h++){var k=b[h];if(!(k in e))break a;e=e[k]}b=b[b.length-1];h=e[b];d=d(h);d!=h&&d!=null&&u(e,b,{configurable:!0,writable:!0,value:d})}}function z(b){function d(h){return b.next(h)}function e(h){return b.throw(h)}return new Promise(function(h,k){function m(n){n.done?h(n.value):Promise.resolve(n.value).then(d,e).then(m,k)}m(b.next())})}y("globalThis",function(b){return b||w});/*
+
+ Copyright The Closure Library Authors.
+ SPDX-License-Identifier: Apache-2.0
+*/
+function A(b,d){function e(){}e.prototype=d.prototype;b.i=d.prototype;b.prototype=new e;b.prototype.constructor=b;b.g=function(h,k,m){for(var n=Array(arguments.length-2),p=2;p<arguments.length;p++)n[p-2]=arguments[p];return d.prototype[k].apply(h,n)}};function B(b,d,e="*"){function h(a){if(typeof a==="string")return F.encode(a).buffer;if(a instanceof ArrayBuffer)return a.slice(0);if(ArrayBuffer.isView(a))return a.buffer.slice(a.byteOffset,a.byteOffset+a.byteLength);throw Error("Invalid data type");}function k(a){a=h(a);var f={type:"send",data:new Uint8Array(a)},g;(g=r)==null||g.postMessage(f,[a])}function m(){if(!r)throw Error("Data port not captured yet.");r.onmessage=a=>{if(a.data.type==="message"){a=new MessageEvent("message",{data:G.decode(a.data.data)});
+let f;(f=c.onmessage)==null||f.call(c,a);c.dispatchEvent(a)}}}function n(){if(!t)throw Error("Control port not captured yet.");t.onmessage=a=>{switch(a.data.type){case "open":l=1;var f=new Event("open"),g;(g=c.onopen)==null||g.call(c,f);c.dispatchEvent(f);q.forEach(H=>{k(H)});q=[];break;case "close":g=a.data;l=3;g=new CloseEvent("close",{code:g.code,reason:g.reason,wasClean:g.wasClean});(f=c.onclose)==null||f.call(c,g);c.dispatchEvent(g);break;case "error":l=3;f=new Event("error");let x;(x=c.onerror)==
+null||x.call(c,f);c.dispatchEvent(f)}}}function p(a){return z(function*(){var f=new MessageChannel;t=f.port1;var g=new MessageChannel;r=g.port1;n();m();window.parent.postMessage({type:"websocket_open",portOrdering:["control","data"],url:b,protocols:a||[],connectionId:I},e,[f.port2,g.port2])}())}var c=Reflect.construct(EventTarget,[],new.target);c.CONNECTING=0;c.OPEN=1;c.CLOSING=2;c.CLOSED=3;c.url=b;c.binaryType="arraybuffer";c.protocol="";c.h="";var l=0,t=null,r=null,q=[],F=new TextEncoder,G=new TextDecoder;
+c.onopen=null;c.onmessage=null;c.onclose=null;c.onerror=null;Object.defineProperty(c,"readyState",{get:()=>l,enumerable:!0,configurable:!0});Object.defineProperty(c,"bufferedAmount",{get:()=>{var a=0;q.forEach(f=>{a+=typeof f==="string"?f.length:f.byteLength});return a},enumerable:!0,configurable:!0});var I=function(){var a;return((a=globalThis.crypto)==null?0:a.randomUUID)?globalThis.crypto.randomUUID():"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,f=>{var g=Math.random()*16|0;return(f===
+"x"?g:g&3|8).toString(16)})}();c.send=a=>{if(l===1)a instanceof Blob?a.arrayBuffer().then(f=>{k(f)}):k(a);else if(l===0)if(typeof a==="string")q.push(a);else if(a instanceof ArrayBuffer||ArrayBuffer.isView(a))q.push(h(a));else throw Error("Sending Blob is not supported before the connection is open.");else console.debug("WebSocket send called in CLOSING or CLOSED state; ignored.")};c.close=(a=1E3,f="")=>{if(l!==2&&l!==3){l=2;a={type:"close",code:a,reason:f,wasClean:a===1E3};var g;(g=t)==null||g.postMessage(a)}};
+Promise.resolve().then(()=>p(d));return c}A(B,EventTarget);var C=document.currentScript,D=C==null?void 0:C.getAttribute("ws-interception-config");if(!D)throw Error("WebSocket Interceptor: Missing ws-interception-config attribute in the script tag.");var E=JSON.parse(D);if(!E.parentOrigin||typeof E.parentOrigin!=="string")throw Error("WebSocket Interceptor: Invalid parentOrigin in ws-interception-config");
+(function(b){var d=Object.getOwnPropertyDescriptor(window,"WebSocket");if(!d||d.writable||d.configurable)d=Object.assign(function(e,h){try{let k=(new URL(e)).hostname;if(b.proxiedDomains.some(m=>k===m||k.endsWith(`.${m}`)))return new B(e,h,b.parentOrigin)}catch(k){throw window.parent.postMessage({type:"websocket_blocked",url:e,reason:"blocked_invalid_url"},b.parentOrigin),new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");}window.parent.postMessage({type:"websocket_blocked",
+url:e,reason:"blocked_domain_not_allowlisted"},b.parentOrigin);throw new DOMException(`WebSocket connection to '${e}' is not allowed in Canvas.`,"SecurityError");},{CONNECTING:0,OPEN:1,CLOSING:2,CLOSED:3}),Object.defineProperty(window,"WebSocket",{value:d,writable:!1,configurable:!1})})({proxiedDomains:E.proxiedDomains||[],parentOrigin:E.parentOrigin});}).call(this);
+</script><script data-bard-injected="true">((function(modelInformation) {
+  const originalFetch = window.fetch;
+  // TODO: b/421908508 - Move these out of the script and match all generative AI model calls.
+  let googleLlmBaseApiUrls = [
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':streamGenerateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.textModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predict',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageModelName + ':predictLongRunning',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageEditModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.imageTransformModelName + ':generateContent',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predict',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.videoModelName + ':predictLongRunning',
+    'https://generativelanguage.googleapis.com/v1beta/models/' + modelInformation.ttsModelName + ':generateContent',
+  ];
+  modelInformation.deprecatedTextModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+    );
+  });
+  modelInformation.deprecatedImageModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predict',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':predictLongRunning',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+  modelInformation.deprecatedGenerateImageModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+  modelInformation.deprecatedImageTransformModelNames.forEach((modelName) => {
+    googleLlmBaseApiUrls.push(
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':generateContent',
+      'https://generativelanguage.googleapis.com/v1beta/models/' + modelName + ':streamGenerateContent',
+    );
+  });
+
+  const pendingFetchResolvers = {};
+  let nextPromiseId = 0;
+
+  function handleStringInput(input, optionsArgument) {
+    const actualUrl = input;
+    const fetchCallArgs = [actualUrl, optionsArgument];
+    const effectiveOptions = optionsArgument || {};
+    const bodyForApiKeyCheck = effectiveOptions.body;
+    const bodyForPostMessage = effectiveOptions.body;
+    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
+  }
+
+  function handleRequestInput(input, optionsArgument) {
+    const actualUrl = input.url;
+    const fetchCallArgs = [input, optionsArgument];
+    const effectiveOptions = { method: input.method, headers: new Headers(input.headers) };
+    let bodyForApiKeyCheck;
+    let bodyForPostMessage;
+
+    if (optionsArgument) {
+      if (optionsArgument.method) effectiveOptions.method = optionsArgument.method;
+      if (optionsArgument.headers) effectiveOptions.headers = new Headers(optionsArgument.headers);
+      if ('body' in optionsArgument) {
+        bodyForApiKeyCheck = optionsArgument.body;
+        bodyForPostMessage = optionsArgument.body;
+      } else {
+        bodyForApiKeyCheck = undefined;
+        bodyForPostMessage = input.body;
+      }
+    } else {
+      bodyForApiKeyCheck = undefined;
+      bodyForPostMessage = input.body;
+    }
+    return { actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage };
+  }
+
+  window.fetch = function(input, optionsArgument) {
+    let actualUrl;
+    let fetchCallArgs;
+    let effectiveOptions = {};
+    let bodyForApiKeyCheck;
+    let bodyForPostMessage;
+
+    if (typeof input === 'string') {
+      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleStringInput(input, optionsArgument));
+    } else if (input instanceof Request) {
+      ({actualUrl, fetchCallArgs, effectiveOptions, bodyForApiKeyCheck, bodyForPostMessage} = handleRequestInput(input, optionsArgument));
+    } else {
+      return originalFetch.apply(window, [input, optionsArgument]);
+    }
+
+    effectiveOptions.method = effectiveOptions.method || 'GET';
+    if (!effectiveOptions.headers) {
+      effectiveOptions.headers = new Headers();
+    }
+
+
+    if (typeof actualUrl === 'string' && googleLlmBaseApiUrls.some((url) => actualUrl.startsWith(url))) {
+      let apiKeyIsNull = true;
+
+      const regex = new RegExp("models/([^:]+)");
+      const modelNameMatch = actualUrl.match(regex);
+      const modelName = modelNameMatch ? modelNameMatch[1] : 'unspecified';
+
+
+      try {
+        const urlObject = new URL(actualUrl);  // Use URL object for robust parsing
+        const apiKeyParam = urlObject.searchParams.get('key');
+        if (apiKeyParam) {
+          apiKeyIsNull = false;
+        }
+      } catch (e) {
+        // Continue checks even if URL parsing fails
+      }
+
+      if (apiKeyIsNull && effectiveOptions.headers) {
+        const h = new Headers(effectiveOptions.headers);
+        const apiKeyHeaderValue = h.get('X-API-Key') || h.get('x-api-key');
+        if (apiKeyHeaderValue) {
+          apiKeyIsNull = false;
+          return originalFetch.apply(window, fetchCallArgs);
+        }
+      }
+
+      if (apiKeyIsNull && effectiveOptions.method && ['POST', 'PUT', 'PATCH'].includes(effectiveOptions.method.toUpperCase()) && typeof bodyForApiKeyCheck === 'string') {
+        try {
+          const bodyData = JSON.parse(bodyForApiKeyCheck);
+          if (bodyData && bodyData.apiKey) {
+            apiKeyIsNull = false;
+            return originalFetch.apply(window, fetchCallArgs);
+          }
+        } catch (e) {
+          // Ignore JSON parsing errors
+        }
+      }
+
+      if(apiKeyIsNull) {
+        const promiseId = nextPromiseId++;
+        const promise = new Promise((resolve) => {
+          pendingFetchResolvers[promiseId] = (resolvedResponse) => {
+            delete pendingFetchResolvers[promiseId];
+            resolve(resolvedResponse);
+          };
+        });
+
+        let serializedBodyForPostMessage;
+        if (typeof bodyForPostMessage === 'string' || bodyForPostMessage == null) {
+            serializedBodyForPostMessage = bodyForPostMessage;
+        } else if (bodyForPostMessage instanceof ReadableStream) {
+            serializedBodyForPostMessage = null;
+        } else {
+            try {
+                serializedBodyForPostMessage = JSON.stringify(bodyForPostMessage);
+            } catch (e) {
+                serializedBodyForPostMessage = null;
+            }
+        }
+
+        const messageOptions = {
+            method: effectiveOptions.method,
+            headers: Object.fromEntries(new Headers(effectiveOptions.headers).entries()),
+            body: serializedBodyForPostMessage
+        };
+
+        window.parent.postMessage({
+          type: 'requestFetch',
+          url: actualUrl,
+          modelName: modelName,
+          options: messageOptions,
+          promiseId: promiseId,
+        }, '*');
+
+        return promise;
+      }
+      return originalFetch.apply(window, fetchCallArgs);
+    }
+    return originalFetch.apply(window, fetchCallArgs);
+  };
+
+  window.addEventListener('message', function(event) {
+    if (event.data && event.data.type === 'resolveFetch') {
+      const { promiseId, response } = event.data;
+      if (pendingFetchResolvers[promiseId]) {
+        try {
+          const reconstructedResponse = new Response(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: new Headers(response.headers),
+          });
+          pendingFetchResolvers[promiseId](reconstructedResponse);
+        } catch (error) {
+          pendingFetchResolvers[promiseId](new Response(null, { status: 500, statusText: "Interceptor Response Reconstruction Error" }));
+        }
+      }
+    }
+  });
+
+}))({"textModelName":"gemini-3-flash-preview","imageModelName":"imagen-4.0-generate-001","imageEditModelName":"gemini-3.1-flash-image","imageTransformModelName":"gemini-3-pro-image","videoModelName":"veo-2.0-generate-001","ttsModelName":"gemini-2.5-flash-preview-tts","deprecatedTextModelNames":["gemini-2.0-flash","gemini-2.5-flash","gemini-2.5-flash-preview-04-17","gemini-2.5-flash-preview-05-20","gemini-2.5-flash-preview-09-2025"],"deprecatedImageModelNames":["imagen-3.0-generate-001","imagen-3.0-generate-002"],"deprecatedGenerateImageModelNames":["gemini-2.5-flash-image-preview","gemini-2.5-flash-image","gemini-3.1-flash-image-preview"],"deprecatedImageTransformModelNames":["gemini-3-pro-image-preview-11-2025"]})</script><script data-bard-injected="true">(function(){'use strict';function a(){window.parent.postMessage({type:"interaction"},"*")}window.addEventListener("click",a,{capture:!0,passive:!0});window.addEventListener("touchstart",a,{capture:!0,passive:!0});window.addEventListener("keydown",a,{capture:!0,passive:!0});}).call(this);
+</script><script data-bard-injected="true">(function() {
+  const originalConsoleLog = console.log;
+  const originalConsoleError = console.error;
+
+    /**
+   * Normalizes an error event or a promise rejection reason into a structured error object.
+   * @param {*} errorEventOrReason The error object or reason.
+   * @return {object} Structured error data { message, name, stack }.
+   */
+  function getErrorObject(errorEventOrReason) {
+    if (errorEventOrReason instanceof Error) {
+      return {
+        message: errorEventOrReason.message,
+        name: errorEventOrReason.name,
+        stack: errorEventOrReason.stack,
+      };
+    }
+    // Fallback for non-Error objects.
+    try {
+      return {
+        message: JSON.stringify(errorEventOrReason),
+        name: 'UnknownErrorType',
+        stack: null,
+      };
+    } catch (e) {
+      return {
+        message: String(errorEventOrReason),
+        name: 'UnknownErrorTypeNonStringifiable',
+        stack: null,
+      };
+    }
+  }
+
+  /**
+   * Converts an array of arguments (from log/error) into a single string.
+   * Handles Error objects specially to include their message and stack.
+   * @param {Array<*>} args - Arguments passed to console methods.
+   * @return {string} A string representation of the arguments.
+   */
+  function stringifyArgs(args) {
+    return args
+      .map((arg) => {
+        if (arg instanceof Error) {
+          const {message, stack} = arg;
+          return `Error: ${message}${stack ? ('\nStack: ' + stack) : ''}`;
+        }
+        if (typeof arg === 'object' && arg !== null) {
+          try {
+            return JSON.stringify(arg);
+          } catch (error) {
+            return '[Circular Object]';
+          }
+        } else {
+          return String(arg);
+        }
+      })
+      .join(' ');
+  }
+
+  console.log = function(...args) {
+    const logString = stringifyArgs(args);
+    window.parent.postMessage({ type: 'log', message: logString }, '*');
+    originalConsoleLog.apply(console, args);
+  };
+
+  console.error = function(...args) {
+    let errorData;
+    if (args.length > 0 && args[0] instanceof Error) {
+      const err = args[0];
+      // If the first arg is an Error, capture its details.
+      errorData = {
+        type: 'error',
+        source: 'CONSOLE_ERROR',
+        ...getErrorObject(err),
+        rawArgsString: stringifyArgs(args.slice(1)),
+        timestamp: new Date().toISOString(),
+      };
+    } else {
+      // If not an Error object, treat all args as a general error message.
+      errorData = {
+        type: 'error',
+        source: 'CONSOLE_ERROR',
+        message: stringifyArgs(args),
+        name: 'ConsoleLoggedError',
+        stack: null,
+        timestamp: new Date().toISOString(),
+      };
+    }
+    window.parent.postMessage(errorData, '*');
+    originalConsoleError.apply(console, args);
+  };
+
+  // Listen for global unhandled synchronous errors.
+  window.addEventListener('error', function(event) {
+    const errorDetails = event.error ? getErrorObject(event.error) : {
+      message: event.message,
+      name: 'GlobalError',
+      stack: null,
+      filename: event.filename,
+      lineno: event.lineno,
+      colno: event.colno,
+    };
+
+    window.parent.postMessage({
+      type: 'error',
+      source: 'global',
+      ...errorDetails,
+      message: errorDetails.message || event.message,
+      timestamp: new Date().toISOString(),
+    }, '*');
+  });
+
+  // Listen for unhandled promise rejections (asynchronous errors).
+  window.addEventListener('unhandledrejection', function(event) {
+    const errorDetails = getErrorObject(event.reason);
+
+    window.parent.postMessage({
+      type: 'error',
+      source: 'unhandledrejection',
+      ...errorDetails,
+      message: errorDetails.message || 'Unhandled Promise Rejection',
+      timestamp: new Date().toISOString(),
+    }, '*');
+  });
+
+})();</script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>보이지 않는 힘: 은혜의 전자기 기차 시뮬레이터</title>
+    <!-- Tailwind CSS for high-tech premium dark UI -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap');
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            user-select: none;
+            -webkit-user-select: none;
+            overflow-x: hidden;
+        }
+        .tech-font {
+            font-family: 'Orbitron', sans-serif;
+        }
+        /* Custom glow effect styling */
+        .glow-btn-cyan {
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+            border: 1px solid rgba(6, 182, 212, 0.6);
+        }
+        .glow-btn-cyan:hover {
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.8);
+        }
+        .glow-btn-green {
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+            border: 1px solid rgba(16, 185, 129, 0.6);
+        }
+        .glow-btn-green:hover {
+            box-shadow: 0 0 25px rgba(16, 185, 129, 0.8);
+        }
+        /* Prevention of horizontal scroll or bouncy touches */
+        canvas {
+            touch-action: none;
+            outline: none;
+        }
+    </style>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.pointer-events-none{pointer-events:none}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.sticky{position:sticky}.inset-0{inset:0px}.bottom-4{bottom:1rem}.left-1\/2{left:50%}.left-4{left:1rem}.right-4{right:1rem}.top-0{top:0px}.top-20{top:5rem}.top-4{top:1rem}.z-10{z-index:10}.z-40{z-index:40}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.mb-0\.5{margin-bottom:0.125rem}.mb-1{margin-bottom:0.25rem}.block{display:block}.flex{display:flex}.inline-flex{display:inline-flex}.grid{display:grid}.hidden{display:none}.h-3{height:0.75rem}.h-full{height:100%}.min-h-\[500px\]{min-height:500px}.min-h-screen{min-height:100vh}.w-11\/12{width:91.666667%}.w-3{width:0.75rem}.w-full{width:100%}.max-w-5xl{max-width:64rem}.max-w-7xl{max-width:80rem}.max-w-md{max-width:28rem}.flex-1{flex:1 1 0%}.-translate-x-1\/2{--tw-translate-x:-50%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.scale-95{--tw-scale-x:.95;--tw-scale-y:.95;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.scale-100{--tw-scale-x:1;--tw-scale-y:1;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}@keyframes ping{75%, 100%{transform:scale(2);opacity:0}}.animate-ping{animation:ping 1s cubic-bezier(0, 0, 0.2, 1) infinite}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-start{align-items:flex-start}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-1{gap:0.25rem}.gap-2{gap:0.5rem}.gap-4{gap:1rem}.space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-3 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.75rem * var(--tw-space-x-reverse));margin-left:calc(0.75rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.overflow-hidden{overflow:hidden}.rounded{border-radius:0.25rem}.rounded-2xl{border-radius:1rem}.rounded-3xl{border-radius:1.5rem}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:0.5rem}.rounded-md{border-radius:0.375rem}.rounded-xl{border-radius:0.75rem}.border{border-width:1px}.border-2{border-width:2px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-amber-500\/50{border-color:rgb(245 158 11 / 0.5)}.border-cyan-500{--tw-border-opacity:1;border-color:rgb(6 182 212 / var(--tw-border-opacity, 1))}.border-cyan-800{--tw-border-opacity:1;border-color:rgb(21 94 117 / var(--tw-border-opacity, 1))}.border-gray-800{--tw-border-opacity:1;border-color:rgb(31 41 55 / var(--tw-border-opacity, 1))}.border-gray-900{--tw-border-opacity:1;border-color:rgb(17 24 39 / var(--tw-border-opacity, 1))}.border-slate-700{--tw-border-opacity:1;border-color:rgb(51 65 85 / var(--tw-border-opacity, 1))}.border-slate-800{--tw-border-opacity:1;border-color:rgb(30 41 59 / var(--tw-border-opacity, 1))}.bg-amber-500\/10{background-color:rgb(245 158 11 / 0.1)}.bg-cyan-400{--tw-bg-opacity:1;background-color:rgb(34 211 238 / var(--tw-bg-opacity, 1))}.bg-cyan-500{--tw-bg-opacity:1;background-color:rgb(6 182 212 / var(--tw-bg-opacity, 1))}.bg-cyan-950{--tw-bg-opacity:1;background-color:rgb(8 51 68 / var(--tw-bg-opacity, 1))}.bg-cyan-950\/80{background-color:rgb(8 51 68 / 0.8)}.bg-emerald-500\/10{background-color:rgb(16 185 129 / 0.1)}.bg-emerald-600{--tw-bg-opacity:1;background-color:rgb(5 150 105 / var(--tw-bg-opacity, 1))}.bg-sky-500\/10{background-color:rgb(14 165 233 / 0.1)}.bg-slate-800{--tw-bg-opacity:1;background-color:rgb(30 41 59 / var(--tw-bg-opacity, 1))}.bg-slate-900\/50{background-color:rgb(15 23 42 / 0.5)}.bg-slate-900\/60{background-color:rgb(15 23 42 / 0.6)}.bg-slate-900\/80{background-color:rgb(15 23 42 / 0.8)}.bg-slate-900\/95{background-color:rgb(15 23 42 / 0.95)}.bg-slate-950{--tw-bg-opacity:1;background-color:rgb(2 6 23 / var(--tw-bg-opacity, 1))}.bg-slate-950\/60{background-color:rgb(2 6 23 / 0.6)}.bg-slate-950\/95{background-color:rgb(2 6 23 / 0.95)}.p-3{padding:0.75rem}.p-4{padding:1rem}.p-5{padding:1.25rem}.px-1\.5{padding-left:0.375rem;padding-right:0.375rem}.px-2{padding-left:0.5rem;padding-right:0.5rem}.px-3{padding-left:0.75rem;padding-right:0.75rem}.px-4{padding-left:1rem;padding-right:1rem}.py-0\.5{padding-top:0.125rem;padding-bottom:0.125rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-1\.5{padding-top:0.375rem;padding-bottom:0.375rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-2\.5{padding-top:0.625rem;padding-bottom:0.625rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.pb-3{padding-bottom:0.75rem}.text-center{text-align:center}.text-right{text-align:right}.text-2xl{font-size:1.5rem;line-height:2rem}.text-\[10px\]{font-size:10px}.text-\[11px\]{font-size:11px}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.font-black{font-weight:900}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.uppercase{text-transform:uppercase}.leading-relaxed{line-height:1.625}.tracking-wider{letter-spacing:0.05em}.tracking-widest{letter-spacing:0.1em}.text-amber-300{--tw-text-opacity:1;color:rgb(252 211 77 / var(--tw-text-opacity, 1))}.text-amber-400{--tw-text-opacity:1;color:rgb(251 191 36 / var(--tw-text-opacity, 1))}.text-cyan-300{--tw-text-opacity:1;color:rgb(103 232 249 / var(--tw-text-opacity, 1))}.text-cyan-400{--tw-text-opacity:1;color:rgb(34 211 238 / var(--tw-text-opacity, 1))}.text-emerald-300{--tw-text-opacity:1;color:rgb(110 231 183 / var(--tw-text-opacity, 1))}.text-emerald-400{--tw-text-opacity:1;color:rgb(52 211 153 / var(--tw-text-opacity, 1))}.text-sky-300{--tw-text-opacity:1;color:rgb(125 211 252 / var(--tw-text-opacity, 1))}.text-sky-400{--tw-text-opacity:1;color:rgb(56 189 248 / var(--tw-text-opacity, 1))}.text-slate-100{--tw-text-opacity:1;color:rgb(241 245 249 / var(--tw-text-opacity, 1))}.text-slate-200{--tw-text-opacity:1;color:rgb(226 232 240 / var(--tw-text-opacity, 1))}.text-slate-300{--tw-text-opacity:1;color:rgb(203 213 225 / var(--tw-text-opacity, 1))}.text-slate-400{--tw-text-opacity:1;color:rgb(148 163 184 / var(--tw-text-opacity, 1))}.text-slate-500{--tw-text-opacity:1;color:rgb(100 116 139 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.text-amber-500{--tw-text-opacity:1;color:rgb(245 158 11 / var(--tw-text-opacity, 1))}.opacity-0{opacity:0}.opacity-75{opacity:0.75}.opacity-100{opacity:1}.shadow-2xl{--tw-shadow:0 25px 50px -12px rgb(0 0 0 / 0.25);--tw-shadow-colored:0 25px 50px -12px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.shadow-xl{--tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.backdrop-blur-lg{--tw-backdrop-blur:blur(16px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.backdrop-blur-md{--tw-backdrop-blur:blur(12px);-webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)}.transition{transition-property:color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:border-amber-500\/50:hover{border-color:rgb(245 158 11 / 0.5)}.hover\:border-emerald-400\/50:hover{border-color:rgb(52 211 153 / 0.5)}.hover\:border-sky-400\/50:hover{border-color:rgb(56 189 248 / 0.5)}.hover\:bg-cyan-900\/50:hover{background-color:rgb(22 78 99 / 0.5)}.hover\:bg-emerald-500:hover{--tw-bg-opacity:1;background-color:rgb(16 185 129 / var(--tw-bg-opacity, 1))}.hover\:bg-slate-700:hover{--tw-bg-opacity:1;background-color:rgb(51 65 85 / var(--tw-bg-opacity, 1))}@media (min-width: 768px){.md\:grid-cols-3{grid-template-columns:repeat(3, minmax(0, 1fr))}.md\:text-lg{font-size:1.125rem;line-height:1.75rem}.md\:text-sm{font-size:0.875rem;line-height:1.25rem}}@media (min-width: 1024px){.lg\:col-span-1{grid-column:span 1 / span 1}.lg\:col-span-3{grid-column:span 3 / span 3}.lg\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}}</style></head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- TOP HEADER BAR -->
+    <header class="border-b border-gray-800 bg-slate-900/80 backdrop-blur-md px-4 py-3 flex items-center justify-between sticky top-0 z-50">
+        <div class="flex items-center space-x-3">
+            <span class="flex h-3 w-3 relative">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-cyan-500"></span>
+            </span>
+            <h1 class="text-sm md:text-lg font-bold tracking-wider text-slate-100 flex items-center gap-2">
+                ⚡ 보이지 않는 힘: <span class="text-cyan-400">은혜의 전자기 기차</span>
+            </h1>
+        </div>
+        <div class="flex items-center space-x-2">
+            <!-- Mode Toggle Switch -->
+            <button id="modeToggleBtn" class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-xs md:text-sm font-semibold text-slate-300 hover:bg-slate-700 transition flex items-center gap-1">
+                👨‍🏫 <span id="modeText">해설 모드 켜기</span>
+            </button>
+            <!-- Instant Download Button -->
+            <button onclick="downloadSelf()" class="glow-btn-green px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-xs md:text-sm font-bold text-white transition flex items-center gap-1">
+                💾 <span>즉시 다운로드</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- TOAST MESSAGE NOTIFICATION CONTAINER (Custom Modal/Alert substitute) -->
+    <div id="toastContainer" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 w-11/12 max-w-md pointer-events-none transition-all duration-300 transform opacity-100 scale-100">
+        <div id="toastAlert" class="bg-slate-950/95 text-slate-100 px-4 py-3 rounded-xl shadow-2xl flex items-center space-x-3 backdrop-blur-lg border-cyan-500">
+            <div id="toastIcon" class="text-2xl text-cyan-400">⚡</div>
+            <div class="flex-1">
+                <p id="toastMessage" class="text-xs md:text-sm font-medium leading-relaxed"><strong>전자기 기차 교구 구동:</strong> 하단에 놓인 부속품들을 직접 드래그하여 결속해 보세요!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN INTERACTIVE HUB -->
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 grid grid-cols-1 lg:grid-cols-4 gap-4 h-full">
+        
+        <!-- SIDE PANEL: Explanations & Setup Controls -->
+        <div class="lg:col-span-1 flex flex-col justify-between space-y-4">
+            
+            <!-- Core Analogy Cards -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 shadow-xl space-y-4 backdrop-blur-md">
+                <h2 class="text-sm font-bold text-slate-400 tracking-wider uppercase">📊 영적 시스템 구성비</h2>
+                
+                <div class="space-y-3">
+                    <div class="bg-slate-950/60 p-3 rounded-xl border border-slate-800 hover:border-amber-500/50 transition">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xs font-bold text-amber-400">구리 코일 스프링</span>
+                            <span class="text-[10px] bg-amber-500/10 text-amber-300 px-1.5 py-0.5 rounded">세상 (World)</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400">마찰과 저항이 지배하는 곳. 스스로의 힘만으로는 절대 나아갈 수 없고 고립되는 궤도입니다.</p>
+                    </div>
+
+                    <div id="statusBatteryCard" class="bg-slate-950/60 p-3 rounded-xl border border-slate-800 hover:border-sky-400/50 transition">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xs font-bold text-sky-400">건전지 (나)</span>
+                            <span class="text-[10px] bg-sky-500/10 text-sky-300 px-1.5 py-0.5 rounded">세상 속의 나 (Me)</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400">잠재력(전압)은 품고 있으나, 세상을 돌파할 에너지를 전달할 연결(자석)이 없는 상태의 나 자신.</p>
+                    </div>
+
+                    <div id="statusMagnetCard" class="bg-slate-950/60 p-3 rounded-xl border border-slate-800 hover:border-emerald-400/50 transition">
+                        <div class="flex items-center justify-between mb-1">
+                            <span class="text-xs font-bold text-emerald-400">네오디움 자석</span>
+                            <span class="text-[10px] bg-emerald-500/10 text-emerald-300 px-1.5 py-0.5 rounded">하나님의 은혜 부스터</span>
+                        </div>
+                        <p class="text-[11px] text-slate-400">건전지에 장착되는 순간, 보이지 않는 자기장과 전기가 통하게 하여 전자기력 돌파구를 만드는 은혜.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interaction Workspace Info -->
+            <div class="bg-slate-900/60 border border-slate-800 rounded-2xl p-4 shadow-xl backdrop-blur-md space-y-3">
+                <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">⚙️ 인터랙션 제어반</h3>
+                <div class="flex flex-col gap-2">
+                    <button id="resetBtn" class="w-full py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 transition flex items-center justify-center gap-2 border border-slate-700">
+                        🔄 시뮬레이션 초기화
+                    </button>
+                    <button id="autoSnapBtn" class="w-full py-2.5 rounded-xl glow-btn-cyan bg-cyan-950/80 hover:bg-cyan-900/50 text-xs font-semibold text-cyan-300 transition flex items-center justify-center gap-2">
+                        ⚡ 은혜의 자석 즉시 합체
+                    </button>
+                </div>
+                <div class="text-[10px] text-slate-500 text-center leading-relaxed">
+                    * 터치가 원활하지 않을 때 [즉시 합체] 버튼을 클릭해 주세요.<br>
+                    * 마우스나 손가락으로 부속품을 직접 드래그할 수 있습니다.
+                </div>
+            </div>
+
+        </div>
+
+        <!-- MAIN PHYSICS SIMULATOR CANVAS PANEL -->
+        <div class="lg:col-span-3 flex flex-col space-y-4">
+            
+            <div class="relative bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl flex-1 flex flex-col min-h-[500px]">
+                
+                <!-- Simulation HUD Overlay -->
+                <div class="absolute top-4 left-4 right-4 flex items-start justify-between pointer-events-none z-10">
+                    <div class="bg-slate-900/80 border border-slate-800 rounded-xl px-3 py-2 text-xs backdrop-blur-md">
+                        <span class="text-slate-400 block font-medium">현재 단계</span>
+                        <span id="currentPhaseText" class="text-amber-500 font-black text-sm">1단계: 자석 없는 건전지 배치 대기</span>
+                    </div>
+                    <div class="bg-slate-900/80 border border-slate-800 rounded-xl px-3 py-2 text-xs backdrop-blur-md text-right tech-font">
+                        <span class="text-slate-400 block font-medium">유도 기전력 (Lenz Force)</span>
+                        <span id="lorentzValue" class="text-slate-500 font-bold text-sm">0.00 T·A</span>
+                    </div>
+                </div>
+
+                <!-- Simulation Interactive State Banners -->
+                <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-10 w-11/12 max-w-md pointer-events-none text-center">
+                    <div id="stateBanner" class="bg-slate-900/95 border-2 border-amber-500/50 px-4 py-3 rounded-2xl shadow-xl backdrop-blur-md">
+                        <p id="stateBannerTitle" class="text-xs font-bold text-amber-400 mb-0.5">⚠️ 보이지 않는 힘(은혜)의 결속 필요</p>
+                        <p id="stateBannerDesc" class="text-[11px] text-slate-300">건전지 양옆에 자석 부스터를 먼저 달라붙인 후, 원형 코일 스프링 세상 위에 올려 보세요.</p>
+                    </div>
+                </div>
+
+                <!-- WebGL / Canvas Container -->
+                <div class="flex-1 w-full relative">
+                    <canvas id="physicsCanvas" class="absolute inset-0 w-full h-full" width="832" height="753"></canvas>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- LESSON GUIDE COMMENTARY PANEL (Teacher script drawer) -->
+    <div id="commentaryPanel" class="hidden border-t border-slate-800 bg-slate-950/95 backdrop-blur-lg p-5 z-40 relative">
+        <div class="max-w-5xl mx-auto space-y-4">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="flex items-center space-x-2">
+                    <span class="text-xl">📖</span>
+                    <h3 class="text-md font-bold text-slate-200">중2 청소년 맞춤형 신앙 인문학 강론 큐시트 (1분 스피치)</h3>
+                </div>
+                <span class="text-xs bg-cyan-950 text-cyan-300 border border-cyan-800 px-2 py-1 rounded-md font-semibold">Teacher Only</span>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs md:text-sm">
+                
+                <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <span class="text-amber-400 font-bold block text-xs">🌱 1단계: 건전지만 배치시 (고립의 자각)</span>
+                    <p class="text-slate-300 leading-relaxed">
+                        "얘들아, 건전지를 그냥 구리 코일 세상 위에 올려볼까? 보이지? 꿈쩍도 하지 않고 멈춰 서 있어. 세상의 저항과 한계 속에서 우리의 순수한 노력만으로는 마찰을 극복할 보이지 않는 자기장의 동력(은혜)이 없기 때문에 스스로 고립되고 정체될 수밖에 없단다."
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <span class="text-cyan-400 font-bold block text-xs">🔗 2단계: 자석 합체 (관계의 연결)</span>
+                    <p class="text-slate-300 leading-relaxed">
+                        "여기에 '하나님의 찬스'이자 '부스터'인 네오디움 자석을 양끝에 달라붙여 볼게. '철컥!' 소리가 나며 자석이 부착되는 순간, 단순한 화학 전지였던 우리가 영적인 무한 궤도를 가로지를 강력한 '믿음의 은혜 기차'로 구조적 각성을 이루게 돼."
+                    </p>
+                </div>
+
+                <div class="bg-slate-900/50 p-4 rounded-xl border border-slate-800 space-y-2">
+                    <span class="text-emerald-400 font-bold block text-xs">🍇 3단계: 무한 돌파 주행 (포도나무 비유)</span>
+                    <p class="text-slate-300 leading-relaxed">
+                        "자석이 합체된 기차를 코일에 올려놓으면 웅장한 가속음과 함께 무한히 뚫고 달려나가지? 예수님은 '나는 포도나무요 너희는 가지라' 하셨어. 성령의 보이지 않는 자기장의 계(System)에 우리 삶을 동조시키고 밀접하게 연동해 나갈 때, 우리는 세상의 그 어떤 마찰도 통과하여 승리하게 된단다!"
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER LICENSE -->
+    <footer class="border-t border-gray-900 bg-slate-950 py-3 text-center text-[10px] text-slate-500">
+        © 2026 보이지 않는 힘: 은혜의 전자기 기차 시뮬레이터 (주일학교 전용 디지털 교구)
+    </footer>
+
+    <!-- WEB AUDIO API & INTERACTIVE PHYSICS SIMULATION ENGINE -->
+    <script>
+        // --- WEB AUDIO API AUDIO SYNTHESIZER ---
+        class SoundSynth {
+            constructor() {
+                this.ctx = null;
+            }
+
+            init() {
+                if (!this.ctx) {
+                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
+
+            // Magnet snap clank sound
+            playSnap() {
+                this.init();
+                const now = this.ctx.currentTime;
+                
+                // Low thump
+                const osc1 = this.ctx.createOscillator();
+                const gain1 = this.ctx.createGain();
+                osc1.type = 'triangle';
+                osc1.frequency.setValueAtTime(120, now);
+                osc1.frequency.exponentialRampToValueAtTime(10, now + 0.15);
+                
+                gain1.gain.setValueAtTime(0.6, now);
+                gain1.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+                
+                // High metallic ping
+                const osc2 = this.ctx.createOscillator();
+                const gain2 = this.ctx.createGain();
+                osc2.type = 'sine';
+                osc2.frequency.setValueAtTime(1500, now);
+                osc2.frequency.exponentialRampToValueAtTime(600, now + 0.08);
+                
+                gain2.gain.setValueAtTime(0.3, now);
+                gain2.gain.exponentialRampToValueAtTime(0.01, now + 0.08);
+                
+                osc1.connect(gain1);
+                gain1.connect(this.ctx.destination);
+                
+                osc2.connect(gain2);
+                gain2.connect(this.ctx.destination);
+                
+                osc1.start(now);
+                osc2.start(now);
+                osc1.stop(now + 0.2);
+                osc2.stop(now + 0.2);
+            }
+
+            // Success Chord Sound (Ta-da-dan! Major Sweep)
+            playSuccess() {
+                this.init();
+                const now = this.ctx.currentTime;
+                const notes = [261.63, 329.63, 392.00, 523.25]; // C4, E4, G4, C5 (C Major)
+                
+                notes.forEach((freq, idx) => {
+                    const osc = this.ctx.createOscillator();
+                    const gain = this.ctx.createGain();
+                    const filter = this.ctx.createBiquadFilter();
+                    
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+                    
+                    filter.type = 'lowpass';
+                    filter.frequency.setValueAtTime(300, now + idx * 0.08);
+                    filter.frequency.exponentialRampToValueAtTime(1500, now + idx * 0.08 + 0.3);
+
+                    gain.gain.setValueAtTime(0.0, now);
+                    gain.gain.linearRampToValueAtTime(0.25, now + idx * 0.08 + 0.05);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.6);
+                    
+                    osc.connect(filter);
+                    filter.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    
+                    osc.start(now + idx * 0.08);
+                    osc.stop(now + idx * 0.08 + 0.7);
+                });
+            }
+
+            // Fail Friction Buzzer Sound
+            playFail() {
+                this.init();
+                const now = this.ctx.currentTime;
+                
+                const osc = this.ctx.createOscillator();
+                const gain = this.ctx.createGain();
+                
+                osc.type = 'sawtooth';
+                osc.frequency.setValueAtTime(150, now);
+                osc.frequency.linearRampToValueAtTime(80, now + 0.3);
+                
+                gain.gain.setValueAtTime(0.25, now);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                
+                osc.connect(gain);
+                gain.connect(this.ctx.destination);
+                
+                osc.start(now);
+                osc.stop(now + 0.3);
+            }
+
+            // Train Continuous Propulsion humming sound
+            startEngine() {
+                this.init();
+                if (this.engineOsc) return;
+
+                const now = this.ctx.currentTime;
+                this.engineOsc = this.ctx.createOscillator();
+                this.engineGain = this.ctx.createGain();
+                this.engineFilter = this.ctx.createBiquadFilter();
+
+                this.engineOsc.type = 'sawtooth';
+                this.engineOsc.frequency.setValueAtTime(50, now);
+
+                this.engineFilter.type = 'lowpass';
+                this.engineFilter.frequency.setValueAtTime(150, now);
+
+                this.engineGain.gain.setValueAtTime(0, now);
+
+                this.engineOsc.connect(this.engineFilter);
+                this.engineFilter.connect(this.engineGain);
+                this.engineGain.connect(this.ctx.destination);
+
+                this.engineOsc.start(now);
+            }
+
+            updateEngine(speed) {
+                if (!this.engineOsc) return;
+                const now = this.ctx.currentTime;
+                // Sweep engine frequencies relative to train velocity
+                const targetFreq = 40 + Math.min(speed * 30, 200);
+                const targetCutoff = 100 + Math.min(speed * 120, 600);
+                const targetVolume = Math.min(speed * 0.06, 0.3);
+
+                this.engineOsc.frequency.setTargetAtTime(targetFreq, now, 0.1);
+                this.engineFilter.frequency.setTargetAtTime(targetCutoff, now, 0.1);
+                this.engineGain.gain.setTargetAtTime(targetVolume, now, 0.05);
+            }
+
+            stopEngine() {
+                if (this.engineOsc) {
+                    try {
+                        this.engineOsc.stop();
+                    } catch(e) {}
+                    this.engineOsc = null;
+                }
+            }
+        }
+
+        const sound = new SoundSynth();
+
+        // --- CUSTOM TOAST/ALERT POPUP TRIGGER ---
+        function showToast(message, icon = "💡", borderColor = "border-cyan-500") {
+            const container = document.getElementById('toastContainer');
+            const alertBox = document.getElementById('toastAlert');
+            const iconBox = document.getElementById('toastIcon');
+            const msgBox = document.getElementById('toastMessage');
+
+            msgBox.innerHTML = message;
+            iconBox.innerHTML = icon;
+            
+            // Clean up old borders
+            alertBox.className = alertBox.className.replace(/border-[^\s]+/g, '');
+            alertBox.classList.add(borderColor);
+
+            // Show Toast
+            container.classList.remove('opacity-0', 'scale-95');
+            container.classList.add('opacity-100', 'scale-100');
+
+            // Automatically disappear
+            if (window.toastTimeout) clearTimeout(window.toastTimeout);
+            window.toastTimeout = setTimeout(() => {
+                container.classList.add('opacity-0', 'scale-95');
+                container.classList.remove('opacity-100', 'scale-100');
+            }, 4500);
+        }
+
+        // --- INTERACTIVE PHYSICS ENGINE & GRAPHICS CANVAS ---
+        const canvas = document.getElementById('physicsCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // Layout Parameters
+        let width, height;
+        let trackX, trackY, trackRadius;
+        
+        // Element States
+        // Assembly Area positions (relative bottom)
+        let battery, magnetL, magnetR;
+        let draggedElement = null;
+        let pointerOffset = { x: 0, y: 0 };
+        
+        // Train movement states
+        let isAttachedOnTrack = false;
+        let trainAngle = 0; // angle along the circular loop [0, 2*PI]
+        let trainVelocity = 0;
+        let trainAcceleration = 0.005;
+        let isRunning = false;
+
+        // Visual effects lists
+        let sparkParticles = [];
+        let magneticRipples = [];
+
+        // Global configuration / mode
+        let currentPhase = 1; // 1: Setup/Disconnected, 2: Magnet Snap Success, 3: High speed orbit
+        let isTeacherMode = false;
+
+        function resizeCanvas() {
+            width = canvas.parentElement.clientWidth;
+            height = canvas.parentElement.clientHeight;
+            canvas.width = width;
+            canvas.height = height;
+
+            // Compute circular track coordinates
+            trackX = width / 2;
+            trackY = height * 0.4;
+            trackRadius = Math.min(width, height) * 0.32;
+
+            resetPositions();
+        }
+
+        function resetPositions() {
+            // Place assembly workspace elements at comfortable bottom slots
+            const bY = height * 0.82;
+            const bX = width / 2;
+
+            battery = {
+                id: 'battery',
+                x: bX,
+                y: bY,
+                rW: 90,
+                rH: 32,
+                attachedL: false,
+                attachedR: false,
+                onTrack: false,
+                color: '#475569'
+            };
+
+            magnetL = {
+                id: 'magnetL',
+                x: bX - 140,
+                y: bY,
+                rW: 24,
+                rH: 40,
+                isAttached: false,
+                color: '#f59e0b'
+            };
+
+            magnetR = {
+                id: 'magnetR',
+                x: bX + 140,
+                y: bY,
+                rW: 24,
+                rH: 40,
+                isAttached: false,
+                color: '#06b6d4'
+            };
+
+            // Reset dynamic vectors
+            draggedElement = null;
+            isAttachedOnTrack = false;
+            trainAngle = -Math.PI / 2;
+            trainVelocity = 0;
+            isRunning = false;
+            sparkParticles = [];
+            magneticRipples = [];
+            currentPhase = 1;
+            sound.stopEngine();
+
+            updateHUD();
+        }
+
+        // --- MATH: CIRCULAR SPRING HELIX DRAWER ---
+        function drawCoilSpring() {
+            ctx.save();
+            ctx.shadowBlur = 0;
+            
+            const numTurns = 180;
+            const springRadius = 16;
+            
+            ctx.strokeStyle = '#d35400';
+            ctx.lineWidth = 2;
+            ctx.lineJoin = 'round';
+            
+            // Draw turns behind battery train (Layer 1)
+            ctx.beginPath();
+            for (let i = 0; i <= numTurns; i++) {
+                const angle = (i / numTurns) * Math.PI * 2;
+                const localHelixAngle = i * 4;
+                
+                // Project 3D-like coordinates along track loop
+                const x0 = trackX + (trackRadius + springRadius * Math.cos(localHelixAngle)) * Math.cos(angle);
+                const y0 = trackY + (trackRadius + springRadius * Math.cos(localHelixAngle)) * Math.sin(angle);
+                
+                // Create metal shading with segmented draw
+                if (i === 0) ctx.moveTo(x0, y0);
+                else ctx.lineTo(x0, y0);
+            }
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        // Particle generator helper
+        function createSpark(x, y, color = '#f43f5e') {
+            for (let i = 0; i < 5; i++) {
+                sparkParticles.push({
+                    x: x,
+                    y: y,
+                    vx: (Math.random() - 0.5) * 6,
+                    vy: (Math.random() - 0.5) * 6,
+                    radius: Math.random() * 2 + 1,
+                    alpha: 1.0,
+                    color: color,
+                    decay: Math.random() * 0.04 + 0.02
+                });
+            }
+        }
+
+        function triggerMagneticRipple(x, y, scale = 1.0, color = 'rgba(6, 182, 212, 0.4)') {
+            magneticRipples.push({
+                x: x,
+                y: y,
+                r: 10,
+                maxR: 90 * scale,
+                alpha: 1.0,
+                color: color,
+                speed: 3
+            });
+        }
+
+        // --- DETAILED RENDER LOOP ---
+        function render() {
+            // Clear Frame with cosmic gradient background
+            const bgGrad = ctx.createRadialGradient(width/2, height/2, 10, width/2, height/2, Math.max(width, height));
+            bgGrad.addColorStop(0, '#0f172a');
+            bgGrad.addColorStop(1, '#020617');
+            ctx.fillStyle = bgGrad;
+            ctx.fillRect(0, 0, width, height);
+
+            // Draw Neon Magnetic Field Track Overlay
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(trackX, trackY, trackRadius, 0, Math.PI * 2);
+            ctx.strokeStyle = (currentPhase === 3) ? 'rgba(16, 185, 129, 0.15)' : 'rgba(51, 65, 85, 0.25)';
+            ctx.lineWidth = 14;
+            ctx.stroke();
+            ctx.restore();
+
+            // Draw Copper Coil
+            drawCoilSpring();
+
+            // Handle Physics Engine calculations
+            if (isRunning && isAttachedOnTrack) {
+                if (battery.attachedL && battery.attachedR) {
+                    // Full electromagnetic loop run
+                    trainVelocity += trainAcceleration;
+                    if (trainVelocity > 0.07) trainVelocity = 0.07; // speed limit
+                    trainAngle += trainVelocity;
+                    
+                    // Emit golden glowing Lorentz field particles
+                    const tx = trackX + trackRadius * Math.cos(trainAngle);
+                    const ty = trackY + trackRadius * Math.sin(trainAngle);
+                    if (Math.random() < 0.35) {
+                        createSpark(tx, ty, '#10b981'); // neon emerald sparks
+                        triggerMagneticRipple(tx, ty, 0.4, 'rgba(16, 185, 129, 0.25)');
+                    }
+                    sound.updateEngine(trainVelocity * 200);
+                } else {
+                    // Friction failure stall
+                    trainVelocity = 0;
+                    const tx = trackX + trackRadius * Math.cos(trainAngle);
+                    const ty = trackY + trackRadius * Math.sin(trainAngle);
+                    
+                    if (Math.random() < 0.1) {
+                        createSpark(tx, ty, '#f43f5e'); // warning red embers
+                        triggerMagneticRipple(tx, ty, 0.5, 'rgba(244, 63, 94, 0.3)');
+                    }
+                }
+            }
+
+            // Sync battery/train position
+            let bx = battery.x;
+            let by = battery.y;
+            let bAngle = 0;
+
+            if (isAttachedOnTrack) {
+                bx = trackX + trackRadius * Math.cos(trainAngle);
+                by = trackY + trackRadius * Math.sin(trainAngle);
+                bAngle = trainAngle + Math.PI/2;
+                battery.x = bx;
+                battery.y = by;
+            }
+
+            // Draw Magnetic Field Wave Ripples
+            magneticRipples.forEach((ripple, idx) => {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(ripple.x, ripple.y, ripple.r, 0, Math.PI * 2);
+                ctx.strokeStyle = ripple.color;
+                ctx.lineWidth = 2;
+                ctx.globalAlpha = ripple.alpha;
+                ctx.stroke();
+                ctx.restore();
+
+                ripple.r += ripple.speed;
+                ripple.alpha = 1 - (ripple.r / ripple.maxR);
+                if (ripple.r >= ripple.maxR) {
+                    magneticRipples.splice(idx, 1);
+                }
+            });
+
+            // Draw Connection Cable line (For Podotree visualization)
+            if (currentPhase === 3) {
+                ctx.save();
+                ctx.beginPath();
+                ctx.strokeStyle = 'rgba(16, 185, 129, 0.3)';
+                ctx.lineWidth = 3;
+                ctx.shadowColor = '#10b981';
+                ctx.shadowBlur = 10;
+                ctx.arc(trackX, trackY, trackRadius, 0, Math.PI*2);
+                ctx.stroke();
+                ctx.restore();
+            }
+
+            // DRAW ELEMENT: NEODYMIUM MAGNETS (If not attached to battery)
+            if (!magnetL.isAttached && draggedElement !== magnetL) {
+                drawMagnet(magnetL.x, magnetL.y, magnetL.rW, magnetL.rH, 'L');
+            }
+            if (!magnetR.isAttached && draggedElement !== magnetR) {
+                drawMagnet(magnetR.x, magnetR.y, magnetR.rW, magnetR.rH, 'R');
+            }
+
+            // DRAW ELEMENT: COMBINED BATTERY TRAIN ASSEMBLY
+            ctx.save();
+            ctx.translate(bx, by);
+            ctx.rotate(bAngle);
+
+            // Draw Glowing aura if empowered (Phase 3)
+            if (battery.attachedL && battery.attachedR) {
+                ctx.save();
+                ctx.shadowBlur = 25;
+                ctx.shadowColor = '#10b981';
+                ctx.fillStyle = 'rgba(16, 185, 129, 0.2)';
+                ctx.beginPath();
+                ctx.roundRect(-70, -25, 140, 50, 15);
+                ctx.fill();
+                ctx.restore();
+            } else if (isAttachedOnTrack && (!battery.attachedL || !battery.attachedR)) {
+                // Warning Red aura
+                ctx.save();
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = '#f43f5e';
+                ctx.fillStyle = 'rgba(244, 63, 94, 0.15)';
+                ctx.beginPath();
+                ctx.roundRect(-60, -20, 120, 40, 10);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            // Draw Battery Cylinder "나"
+            ctx.save();
+            ctx.shadowBlur = 10;
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+            // Brass Tip (+) Terminal
+            ctx.fillStyle = '#b45309';
+            ctx.fillRect(battery.rW / 2, -8, 6, 16);
+            
+            // Battery Body
+            const bodyGrad = ctx.createLinearGradient(-battery.rW/2, 0, battery.rW/2, 0);
+            bodyGrad.addColorStop(0, '#1e293b');
+            bodyGrad.addColorStop(0.5, '#475569');
+            bodyGrad.addColorStop(1, '#0f172a');
+            ctx.fillStyle = bodyGrad;
+            
+            ctx.beginPath();
+            ctx.roundRect(-battery.rW / 2, -battery.rH / 2, battery.rW, battery.rH, 4);
+            ctx.fill();
+            
+            // Labelling
+            ctx.fillStyle = '#f8fafc';
+            ctx.font = 'bold 9px Orbitron, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('나 (ME) 1.5V', 0, 0);
+
+            // Polarities
+            ctx.font = 'bold 10px sans-serif';
+            ctx.fillStyle = '#94a3b8';
+            ctx.fillText('-', -battery.rW/2 + 8, 0);
+            ctx.fillText('+', battery.rW/2 - 8, 0);
+            ctx.restore();
+
+            // Draw snapped Magnets L & R
+            if (battery.attachedL) {
+                drawMagnetInAssembly(-battery.rW/2 - 12, 0, 'L');
+            }
+            if (battery.attachedR) {
+                drawMagnetInAssembly(battery.rW/2 + 12, 0, 'R');
+            }
+
+            ctx.restore();
+
+            // If a magnet or battery is being actively dragged, draw it at top layout layer
+            if (draggedElement && draggedElement.id !== 'battery') {
+                const tag = draggedElement.id === 'magnetL' ? 'L' : 'R';
+                drawMagnet(draggedElement.x, draggedElement.y, draggedElement.rW, draggedElement.rH, tag, true);
+            }
+            if (draggedElement && draggedElement.id === 'battery') {
+                // When dragging the battery assembly
+                ctx.save();
+                ctx.translate(battery.x, battery.y);
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = 'rgba(6, 182, 212, 0.4)';
+                // Basic representation of dragged body
+                ctx.fillStyle = 'rgba(6, 182, 212, 0.25)';
+                ctx.beginPath();
+                ctx.roundRect(-battery.rW/2 - 25, -battery.rH/2 - 10, battery.rW + 50, battery.rH + 20, 8);
+                ctx.fill();
+                ctx.restore();
+            }
+
+            // Draw particle explosions
+            sparkParticles.forEach((p, idx) => {
+                ctx.save();
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.shadowBlur = 5;
+                ctx.shadowColor = p.color;
+                ctx.globalAlpha = p.alpha;
+                ctx.fill();
+                ctx.restore();
+
+                p.x += p.vx;
+                p.y += p.vy;
+                p.alpha -= p.decay;
+                if (p.alpha <= 0) {
+                    sparkParticles.splice(idx, 1);
+                }
+            });
+
+            requestAnimationFrame(render);
+        }
+
+        // Dedicated sub-renders for Magnet Components
+        function drawMagnet(x, y, w, h, side, isFloating = false) {
+            ctx.save();
+            if (isFloating) {
+                ctx.shadowBlur = 15;
+                ctx.shadowColor = side === 'L' ? '#f59e0b' : '#06b6d4';
+            } else {
+                ctx.shadowBlur = 5;
+                ctx.shadowColor = 'rgba(0,0,0,0.5)';
+            }
+
+            // Split coloration: Red (North) & Blue (South)
+            const halfH = h / 2;
+            
+            // N-Pole (Top)
+            ctx.fillStyle = '#f43f5e';
+            ctx.beginPath();
+            ctx.roundRect(x - w/2, y - h/2, w, halfH, {tl: 4, tr: 4, bl: 0, br: 0});
+            ctx.fill();
+
+            // S-Pole (Bottom)
+            ctx.fillStyle = '#3b82f6';
+            ctx.beginPath();
+            ctx.roundRect(x - w/2, y, w, halfH, {tl: 0, tr: 0, bl: 4, br: 4});
+            ctx.fill();
+
+            // Metal gloss stroke
+            ctx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+
+            // Text
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '9px Orbitron, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.fillText('N', x, y - 6);
+            ctx.fillText('S', x, y + 10);
+
+            // Subtitle
+            ctx.font = '8px sans-serif';
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+            ctx.fillText(side === 'L' ? '은혜' : '찬스', x, y + h/2 + 10);
+
+            ctx.restore();
+        }
+
+        function drawMagnetInAssembly(ox, oy, side) {
+            ctx.save();
+            ctx.translate(ox, oy);
+            ctx.rotate(Math.PI / 2); // align sideways alongside battery terminals
+            
+            const w = 20, h = 24;
+            const halfH = h / 2;
+
+            // N-Pole
+            ctx.fillStyle = '#f43f5e';
+            ctx.beginPath();
+            ctx.roundRect(-w/2, -h/2, w, halfH, {tl: 3, tr: 3, bl: 0, br: 0});
+            ctx.fill();
+
+            // S-Pole
+            ctx.fillStyle = '#3b82f6';
+            ctx.beginPath();
+            ctx.roundRect(-w/2, 0, w, halfH, {tl: 0, tr: 0, bl: 3, br: 3});
+            ctx.fill();
+
+            ctx.fillStyle = '#ffffff';
+            ctx.font = 'bold 8px Orbitron, sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('N', 0, -5);
+            ctx.fillText('S', 0, 5);
+
+            ctx.restore();
+        }
+
+        // --- STAGE LOGIC UPDATERS ---
+        function updateHUD() {
+            const phaseText = document.getElementById('currentPhaseText');
+            const lorentzHUD = document.getElementById('lorentzValue');
+            const banner = document.getElementById('stateBanner');
+            const bannerTitle = document.getElementById('stateBannerTitle');
+            const bannerDesc = document.getElementById('stateBannerDesc');
+
+            if (currentPhase === 1) {
+                phaseText.innerText = "1단계: 자석 없는 건전지 배치 대기";
+                phaseText.className = "text-amber-500 font-black text-sm";
+                lorentzHUD.innerText = "0.00 T·A";
+                lorentzHUD.className = "text-slate-500 font-bold text-sm";
+                
+                banner.className = "bg-slate-900/95 border-2 border-amber-500/50 px-4 py-3 rounded-2xl shadow-xl backdrop-blur-md";
+                bannerTitle.innerText = "⚠️ 보이지 않는 힘(은혜)의 결속 필요";
+                bannerTitle.className = "text-xs font-bold text-amber-400 mb-0.5";
+                bannerDesc.innerText = "건전지 양옆에 자석 부스터를 먼저 달라붙인 후, 원형 코일 스프링 세상 위에 올려 보세요.";
+            } 
+            else if (currentPhase === 2) {
+                phaseText.innerText = "2단계: 은혜의 기차 각성 완료";
+                phaseText.className = "text-cyan-400 font-black text-sm";
+                lorentzHUD.innerText = "1.52 T·A";
+                lorentzHUD.className = "text-cyan-400 font-bold text-sm";
+
+                banner.className = "bg-slate-900/95 border-2 border-cyan-500/60 px-4 py-3 rounded-2xl shadow-xl backdrop-blur-md";
+                bannerTitle.innerText = "✨ 각성: 믿음의 은혜 기차 결합 성공!";
+                bannerTitle.className = "text-xs font-bold text-cyan-400 mb-0.5";
+                bannerDesc.innerText = "이제 완성된 은혜의 기차를 손가락으로 드래그하여 원형 코일 트랙 위에 올리면 주행이 시작됩니다.";
+            } 
+            else if (currentPhase === 3) {
+                phaseText.innerText = "3단계: 은혜의 궤도 돌파 주행중";
+                phaseText.className = "text-emerald-400 font-black text-sm animate-pulse";
+                lorentzHUD.innerText = "9.81 T·A (무한 돌파)";
+                lorentzHUD.className = "text-emerald-400 font-bold text-sm tech-font";
+
+                banner.className = "bg-slate-900/95 border-2 border-emerald-500 px-4 py-3 rounded-2xl shadow-xl backdrop-blur-md";
+                bannerTitle.innerText = "🚀 무한 돌파: 어떠한 세상의 저항도 관통하다!";
+                bannerTitle.className = "text-xs font-bold text-emerald-400 mb-0.5";
+                bannerDesc.innerText = "포도나무 가지가 둥치에 꼭 붙어있듯이, 은혜의 자석과 함께 세상 코일을 은혜롭게 끝없이 주행합니다.";
+            }
+        }
+
+        // --- POINTER EVENT DRAG CONTROLLER (360-degree, Smooth Pointer Capture) ---
+        function getPointerPos(e) {
+            const rect = canvas.getBoundingClientRect();
+            return {
+                x: e.clientX - rect.left,
+                y: e.clientY - rect.top
+            };
+        }
+
+        canvas.addEventListener('pointerdown', (e) => {
+            sound.init(); // Initialize audio synth on initial touch gesture safely
+            const pos = getPointerPos(e);
+            
+            // Check dragging priority: 1. Loose Magnets, 2. Battery
+            let hit = null;
+
+            if (!magnetL.isAttached) {
+                if (Math.hypot(pos.x - magnetL.x, pos.y - magnetL.y) < 30) hit = magnetL;
+            }
+            if (!magnetR.isAttached && !hit) {
+                if (Math.hypot(pos.x - magnetR.x, pos.y - magnetR.y) < 30) hit = magnetR;
+            }
+            if (!hit) {
+                // Check battery hit box
+                if (Math.hypot(pos.x - battery.x, pos.y - battery.y) < 50) {
+                    hit = battery;
+                }
+            }
+
+            if (hit) {
+                draggedElement = hit;
+                canvas.setPointerCapture(e.pointerId);
+                pointerOffset.x = pos.x - hit.x;
+                pointerOffset.y = pos.y - hit.y;
+
+                if (hit.id === 'battery' && isAttachedOnTrack) {
+                    // Pulling off track
+                    isAttachedOnTrack = false;
+                    isRunning = false;
+                    sound.stopEngine();
+                    if (currentPhase === 3) currentPhase = 2;
+                    updateHUD();
+                }
+            }
+        });
+
+        canvas.addEventListener('pointermove', (e) => {
+            if (!draggedElement) return;
+            const pos = getPointerPos(e);
+
+            draggedElement.x = pos.x - pointerOffset.x;
+            draggedElement.y = pos.y - pointerOffset.y;
+
+            // Smart snap logic: snap magnets to the battery ends
+            if (draggedElement.id === 'magnetL' || draggedElement.id === 'magnetR') {
+                // Distance to battery terminals
+                const distToBattery = Math.hypot(draggedElement.x - battery.x, draggedElement.y - battery.y);
+                if (distToBattery < 80) {
+                    // Automatically snap based on drag side proximity
+                    if (draggedElement.id === 'magnetL' && !battery.attachedL) {
+                        battery.attachedL = true;
+                        magnetL.isAttached = true;
+                        draggedElement = null;
+                        sound.playSnap();
+                        createSpark(battery.x - 50, battery.y, '#f59e0b');
+                        triggerMagneticRipple(battery.x - 50, battery.y, 1.0, 'rgba(245, 158, 11, 0.4)');
+                        showToast("<strong>자석 장착 완료!</strong> 건전지 좌측 단자에 부스터가 연결되었습니다.", "⚡", "border-amber-500");
+                        checkFullAssembly();
+                    } 
+                    else if (draggedElement.id === 'magnetR' && !battery.attachedR) {
+                        battery.attachedR = true;
+                        magnetR.isAttached = true;
+                        draggedElement = null;
+                        sound.playSnap();
+                        createSpark(battery.x + 50, battery.y, '#06b6d4');
+                        triggerMagneticRipple(battery.x + 50, battery.y, 1.0, 'rgba(6, 182, 212, 0.4)');
+                        showToast("<strong>자석 장착 완료!</strong> 건전지 우측 단자에 부스터가 연결되었습니다.", "⚡", "border-cyan-500");
+                        checkFullAssembly();
+                    }
+                }
+            }
+        });
+
+        canvas.addEventListener('pointerup', (e) => {
+            if (!draggedElement) return;
+            
+            // Check dropping onto circular track
+            if (draggedElement.id === 'battery') {
+                const distToTrackCenter = Math.hypot(battery.x - trackX, battery.y - trackY);
+                
+                // Allow snap to circular orbit if within distance envelope
+                if (Math.abs(distToTrackCenter - trackRadius) < 70) {
+                    // Set train angle relative to drop location
+                    trainAngle = Math.atan2(battery.y - trackY, battery.x - trackX);
+                    isAttachedOnTrack = true;
+                    
+                    if (battery.attachedL && battery.attachedR) {
+                        currentPhase = 3;
+                        isRunning = true;
+                        trainVelocity = 0.02; // Initial push
+                        sound.playSuccess();
+                        sound.startEngine();
+                        showToast("<strong>통과 대성공!</strong> 성령의 유도 전자기력(로렌츠 힘)을 받아 세상을 힘차게 무한 돌파합니다!", "🎉", "border-emerald-500");
+                    } else {
+                        // Friction failure: Only battery dropped
+                        isRunning = true; // Still active state, but stalled
+                        trainVelocity = 0;
+                        sound.playFail();
+                        showToast("<strong>❌ 진입 실패:</strong> 세상의 마찰 저항에 막혔습니다. 부스터(은혜) 없이는 스스로 나아갈 수 없습니다.", "⚠️", "border-rose-500");
+                    }
+                    updateHUD();
+                } else {
+                    // Dropped in whitespace, reset battery back to workspace bottom if dropped too far away
+                    if (battery.y < height * 0.6) {
+                        battery.x = width / 2;
+                        battery.y = height * 0.82;
+                    }
+                }
+            } else {
+                // Magnets dropped in whitespace, return to their slots
+                if (draggedElement.id === 'magnetL') {
+                    magnetL.x = width / 2 - 140;
+                    magnetL.y = height * 0.82;
+                } else if (draggedElement.id === 'magnetR') {
+                    magnetR.x = width / 2 + 140;
+                    magnetR.y = height * 0.82;
+                }
+            }
+
+            draggedElement = null;
+            canvas.releasePointerCapture(e.pointerId);
+        });
+
+        canvas.addEventListener('pointercancel', (e) => {
+            draggedElement = null;
+        });
+
+        function checkFullAssembly() {
+            if (battery.attachedL && battery.attachedR) {
+                currentPhase = 2;
+                sound.playSuccess();
+                showToast("<strong>은혜의 기차 각성!</strong> 양쪽 네오디움 자석이 완벽히 장착되었습니다. 이제 기차를 코일 선로에 올리세요!", "✨", "border-cyan-400");
+                updateHUD();
+            }
+        }
+
+        // --- BUTTON UTILITIES ---
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            resetPositions();
+            showToast("실험 환경이 처음 상태로 복원되었습니다. 건전지에 자석을 다시 장착해 보세요.", "🔄", "border-slate-500");
+        });
+
+        // Cheat auto snaps for ease of teaching / low precision controls
+        document.getElementById('autoSnapBtn').addEventListener('click', () => {
+            if (battery.attachedL && battery.attachedR) {
+                showToast("이미 은혜의 자석들이 모두 완벽히 부착되어 있습니다.", "💡", "border-cyan-500");
+                return;
+            }
+            
+            battery.attachedL = true;
+            magnetL.isAttached = true;
+            battery.attachedR = true;
+            magnetR.isAttached = true;
+            
+            sound.playSnap();
+            setTimeout(() => sound.playSuccess(), 200);
+            
+            createSpark(battery.x - 45, battery.y, '#f59e0b');
+            createSpark(battery.x + 45, battery.y, '#06b6d4');
+            triggerMagneticRipple(battery.x, battery.y, 1.2, 'rgba(16, 185, 129, 0.4)');
+            
+            currentPhase = 2;
+            updateHUD();
+            showToast("<strong>치트 장치 가동:</strong> 두 은혜의 자석이 건전지에 원격 자동 스냅 합체되었습니다!", "⚡", "border-emerald-500");
+        });
+
+        // Mode Switching
+        const modeToggleBtn = document.getElementById('modeToggleBtn');
+        const modeText = document.getElementById('modeText');
+        const commentaryPanel = document.getElementById('commentaryPanel');
+
+        modeToggleBtn.addEventListener('click', () => {
+            isTeacherMode = !isTeacherMode;
+            if (isTeacherMode) {
+                modeText.innerText = "해설 모드 끄기";
+                commentaryPanel.classList.remove('hidden');
+                showToast("<strong>교사용 해설 패널 활성화:</strong> 하단에 중2 청소년 맞춤 스토리텔링 가이드가 오픈되었습니다.", "👨‍🏫", "border-cyan-500");
+            } else {
+                modeText.innerText = "해설 모드 켜기";
+                commentaryPanel.classList.add('hidden');
+            }
+        });
+
+        // --- EXPORT / INDEX.HTML DOWNLOADER ---
+        function downloadSelf() {
+            // Read self HTML source, package into a blob and download instantly
+            const htmlContent = document.documentElement.outerHTML;
+            const blob = new Blob([htmlContent], { type: 'text/html' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'index.html';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // --- ONLOAD SETUP INITIALIZER ---
+        window.onload = function() {
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Start Canvas rendering pipeline
+            render();
+            
+            // Sweet introductory toast banner
+            setTimeout(() => {
+                showToast("<strong>전자기 기차 교구 구동:</strong> 하단에 놓인 부속품들을 직접 드래그하여 결속해 보세요!", "⚡", "border-cyan-500");
+            }, 1000);
+        };
+    </script>
+
+</body></html>
